@@ -1,8 +1,22 @@
+
+def input_error(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ValueError:
+            return "Give me name and phone please."
+        except KeyError:
+            return "There is no such name in contacts."
+        except IndexError:
+            return "Give me name of contact please"
+    return inner
+
 def parse_input(user_input):
     command, *args = user_input.split()
     command = command.strip().lower()
     return command, *args
 
+@input_error
 def add_contact(args, contacts):
     name, phone = args
     contacts[name] = phone
@@ -15,12 +29,13 @@ def change_contact(args, contacts):
     contacts[name] = phone
     return "Contact updated successfully"
 
+@input_error
 def show_contact(args, contacts):
-    try:
+    # try:
         name = args[0]
         return contacts[name]
-    except KeyError:
-        print(f"There is no such name {name} in contacts.")
+    # except KeyError:
+    #     print(f"There is no such name {name} in contacts.")
 
 def main():
     contacts = {}
@@ -50,6 +65,8 @@ def main():
         
         else:
             print("Invalid command.")
-            
+
+
+
 if __name__ == "__main__":
     main()
