@@ -22,6 +22,7 @@ def add_contact(args, contacts):
     contacts[name] = phone
     return "Contact added."
 
+@input_error
 def change_contact(args, contacts):
     name, phone = args
     if name not in contacts:
@@ -31,12 +32,9 @@ def change_contact(args, contacts):
 
 @input_error
 def show_contact(args, contacts):
-    # try:
         name = args[0]
         return contacts[name]
-    # except KeyError:
-    #     print(f"There is no such name {name} in contacts.")
-
+    
 def main():
     contacts = {}
     print("Welcome to the assistant bot!")
