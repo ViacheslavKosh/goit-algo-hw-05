@@ -1,14 +1,13 @@
-
-def input_error(func):
+def input_error(func):                  # Додаємо функцію декоратор для обробки вийнятків
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except ValueError:
             return "Give me name and phone please."
         except KeyError:
-            return "There is no such name in contacts."
+            return "There is no such name in my contacts."
         except IndexError:
-            return "Give me name of contact please"
+            return "Give me a contact name please"
     return inner
 
 def parse_input(user_input):
@@ -16,21 +15,21 @@ def parse_input(user_input):
     command = command.strip().lower()
     return command, *args
 
-@input_error
+@input_error                            # Використовуємо для функції декоратор
 def add_contact(args, contacts):
     name, phone = args
     contacts[name] = phone
     return "Contact added."
 
-@input_error
+@input_error                            # Використовуємо для функції декоратор
 def change_contact(args, contacts):
     name, phone = args
     if name not in contacts:
         print(f"There is no such name {name} in contacts. Contact was added.")
     contacts[name] = phone
-    return "Contact updated successfully"
+    return "Contact updated successfully."
 
-@input_error
+@input_error                            # Використовуємо для функції декоратор
 def show_contact(args, contacts):
         name = args[0]
         return contacts[name]
@@ -63,8 +62,6 @@ def main():
         
         else:
             print("Invalid command.")
-
-
 
 if __name__ == "__main__":
     main()

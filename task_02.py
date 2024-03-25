@@ -1,19 +1,19 @@
 
-import re
-from typing import Callable
+import re                                       # Імпортуємо необхідні модулі та методи
+from typing import Callable                     
 
-def generator_numbers(text: str):
-    pattern = r"\b\d+.\d+\b"
-    for match in re.findall(pattern, text):
-        yield float(match)
+def generator_numbers(text: str):               # Оголошуємо функцію що приймає рядок як аргумент 
+    pattern = r"\b\d+.\d+\b"                    # Задаємо паттерн для відокркмлення дійсних чисел
+    for match in re.findall(pattern, text):     # Ітеруємося по співпадіннях з пошуку по патерну
+        yield float(match)                      # Повертаємо кожне співпадіння використовуючи генератор
 
-def sum_profit(text: str, sum: Callable):
-    total = 0
-    for nums in sum(text):
-        total += nums
-    return total
+def sum_profit(text: str, sum: Callable):       # Оголошуємо функцію для обчислення загальної суми чисел
+    total = 0                                   # Призначаємо змінну для зберігання результату
+    for nums in sum(text):                      # Ітеруємося по числах з викликаної функції
+        total += nums                           # Кожну ітерацію додаємо до змінної результату
+    return total                                # Повертаємо результат
 
-
+# Приклад використання 
 text = "Загальний дохід працівника складається з декількох частин: 1000.01 як основний дохід, доповнений додатковими надходженнями 27.45 і 324.00 доларів."
-total_income = sum_profit(text, generator_numbers)
+total_income = sum_profit(text, generator_numbers) 
 print(f"Загальний дохід: {total_income}")
